@@ -81,6 +81,12 @@
                 <div class="title m-b-md">
                     Cubex test
                 </div>
+                <div class="flex-center">
+                    <a href="{{ route("bid.create") }}" class="btn btn-info">
+                        Создать заявку
+                    </a>
+                </div>
+
             </div>
         </div>
     </body>
