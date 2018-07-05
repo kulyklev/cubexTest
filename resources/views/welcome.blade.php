@@ -65,6 +65,7 @@
         </style>
     </head>
     <body>
+        @include('includes.messages')
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -87,9 +88,6 @@
                             Просмотреть заявки
                         </a>
                     @else
-                        <a href="{{ route("bid.index") }}" class="btn btn-info">
-                            Просмотреть заявки
-                        </a>
                         <a href="{{ route("bid.create") }}" class="btn btn-info">
                             Создать заявку
                         </a>

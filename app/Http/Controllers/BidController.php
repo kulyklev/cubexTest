@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBid;
 use App\Repositories\IBidRepository;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,8 +31,12 @@ class BidController extends Controller
      */
     public function index()
     {
-        $allBids = $this->bidRepository->getAllBids();
-        return view('bid.indexbid')->with(['bids' => $allBids]);
+        if(Gate::allows('adminAction')){
+            $allBids = $this->bidRepository->getAllBids();
+            return view('bid.indexbid')->with(['bids' => $allBids]);
+        } else {
+            return redirect('/')->with('error', 'You cannot view all bids');
+        }
     }
 
     /**
@@ -64,8 +69,13 @@ class BidController extends Controller
      */
     public function show($id)
     {
-        $bid = $this->bidRepository->getBidById($id);
-        return view('bid.showbid', ['bid' => $bid]);
+        if(Gate::allows('adminAction')){
+            $bid = $this->bidRepository->getBidById($id);
+            return view('bid.showbid', ['bid' => $bid]);
+        } else {
+            return redirect('/')->with('error', 'You cannot view this bid');
+        }
+
     }
 
     /**
