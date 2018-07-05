@@ -82,9 +82,18 @@
                     Cubex test
                 </div>
                 <div class="flex-center">
-                    <a href="{{ route("bid.create") }}" class="btn btn-info">
-                        Создать заявку
-                    </a>
+                    @if(Auth::user()->isAdmin)
+                        <a href="{{ route("bid.create") }}" class="btn btn-info">
+                            Просмотреть заявки
+                        </a>
+                    @else
+                        <a href="{{ route("bid.index") }}" class="btn btn-info">
+                            Просмотреть заявки
+                        </a>
+                        <a href="{{ route("bid.create") }}" class="btn btn-info">
+                            Создать заявку
+                        </a>
+                    @endif
                 </div>
 
             </div>

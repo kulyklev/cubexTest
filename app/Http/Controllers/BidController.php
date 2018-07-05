@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBid;
-use IBidRepository;
+use App\Repositories\IBidRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,6 +11,12 @@ class BidController extends Controller
 {
     protected $bidRepository;
 
+    /**
+     * Constructor of BidController.
+     *
+     * @param  \App\Repositories\IBidRepository $bidRepository
+     *
+     */
     public function __construct(IBidRepository $bidRepository)
     {
         $this->middleware('auth');
@@ -25,7 +31,7 @@ class BidController extends Controller
     public function index()
     {
         $allBids = $this->bidRepository->getAllBids();
-        return view('bid.indexbid')->with(['allBids' => $allBids]);
+        return view('bid.indexbid')->with(['bids' => $allBids]);
     }
 
     /**
@@ -59,7 +65,7 @@ class BidController extends Controller
     public function show($id)
     {
         $bid = $this->bidRepository->getBidById($id);
-        return redirect()->route('bid.indexbid', ['bid' => $bid]);
+        return view('bid.showbid', ['bid' => $bid]);
     }
 
     /**

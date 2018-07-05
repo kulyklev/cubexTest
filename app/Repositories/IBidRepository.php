@@ -6,6 +6,8 @@
  * Time: 18:14
  */
 
+namespace App\Repositories;
+
 interface IBidRepository{
     public function storeBid(array $data, $userId);
 

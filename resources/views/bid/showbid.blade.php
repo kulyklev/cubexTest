@@ -4,58 +4,46 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                @extends('layouts.app')
+                <table class="table table-borderless table-hover">
+                    <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ $bid->id }}</th>
+                    </tr>
 
-                @section('content')
-                    @include('includes.messages')
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                Имя пользователя
-                            </div>
-                            <div class="col-8">
-                                {{ $bid->user->name }}
-                            </div>
-                        </div>
+                    <tr>
+                        <th>Имя пользователя</th>
+                        <th>{{ $bid->user->name }}</th>
+                    </tr>
 
-                        <div class="row">
-                            <div class="col">
-                                Время создания заяки
-                            </div>
-                            <div class="col-8">
-                                {{ $bid->createdAt }}
-                            </div>
-                        </div>
+                    <tr>
+                        <th>Тема</th>
+                        <th>{{ $bid->theme }}</th>
+                    </tr>
 
-                        <div class="row">
-                            <div class="col">
-                                Тема сообщения
-                            </div>
-                            <div class="col-8">
-                                {{ $bid->messageTheme }}
-                            </div>
-                        </div>
+                    <tr>
+                        <th>Сообщение</th>
+                        <th>{{ $bid->message }}</th>
+                    </tr>
 
-                        <div class="row">
-                            <div class="col">
-                                Прикрепленный файл
-                            </div>
-                            <div class="col-8">
-                                {{ $bid->file}}
-                            </div>
-                        </div>
+                    <tr>
+                        <th>Прикрепленный файл</th>
+                        {{--<th>{{ $bid->file }}</th>--}}
+                    </tr>
 
-                        <div class="row">
-                            <div class="col">
-                                Сообщение
-                            </div>
-                            <div class="col-8">
-                                {{ $bid->message }}
-                            </div>
-                        </div>
-                    </div>
-                @endsection
+                    <tr>
+                        <th>Дата создания</th>
+                        <th>{{ $bid->created_at }}</th>
+                    </tr>
 
+                    <tr>
+                        {!! Form::open(['action' => ['BidController@', 'bidID' => $bid->id], 'method' => 'POST']) !!}
+                            {{ Form::hidden('_method', 'PUT') }}
+                            {{ Form::submit('Пометить прочитанным', ['class' => 'btn btn-primary btn-lg']) }}
+                        {!! Form::close() !!}
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -20,6 +20,7 @@ class CreateBidsTable extends Migration
             $table->longText('message');
             $table->string('file')->nullable($value = true);
             $table->timestamps();
+            $table->boolean('isViewed')->default(false);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
