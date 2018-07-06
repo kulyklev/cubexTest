@@ -19,4 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('bid', 'BidController');
+
+Route::post('bid', 'BidController@store')->name('bid.store');
+Route::get('bid', 'BidController@index')->name('bid.index');
+Route::get('bid/create', 'BidController@create')->name('bid.create');
+Route::get('bid/{bid}', 'BidController@show')->name('bid.show');
+Route::match(['put', 'patch'], 'bid/{bid}', 'BidController@markAsViewed')->name('bid.markAsViewed');
+
+
+
+//Route::resource('bid', 'BidController');

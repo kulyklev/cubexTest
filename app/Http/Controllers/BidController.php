@@ -79,6 +79,23 @@ class BidController extends Controller
     }
 
     /**
+     * Mark the specified bid as viewed.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function markAsViewed(Request $request, $bidId)
+    {
+        if(Gate::allows('adminAction')){
+            $this->bidRepository->markAsViewed($bidId);
+            return redirect()->route('bid.index')->with('success', 'Сообщение отмечено прочитанным');
+        }
+        else
+            return redirect('/')->with('error', 'You cannot perform this action');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

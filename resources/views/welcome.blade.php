@@ -94,7 +94,7 @@
                 <div class="flex-center">
                     @auth
                         @if(Auth::user()->isAdmin)
-                            <a href="{{ route("bid.create") }}" class="btn btn-info">
+                            <a href="{{ route("bid.index") }}" class="btn btn-info">
                                 Просмотреть заявки
                             </a>
                         @else

@@ -35,15 +35,12 @@
                         <th>Дата создания</th>
                         <th>{{ $bid->created_at }}</th>
                     </tr>
-
-                    <tr>
-                        {!! Form::open(['action' => ['BidController@', 'bidID' => $bid->id], 'method' => 'POST']) !!}
-                            {{ Form::hidden('_method', 'PUT') }}
-                            {{ Form::submit('Пометить прочитанным', ['class' => 'btn btn-primary btn-lg']) }}
-                        {!! Form::close() !!}
-                    </tr>
                     </tbody>
                 </table>
+                {!! Form::open(['action' => ['BidController@markAsViewed', 'bidId' => $bid->id], 'method' => 'POST']) !!}
+                    {{ Form::hidden('_method', 'PUT') }}
+                    {{ Form::submit('Пометить прочитанным', ['class' => 'btn btn-primary btn-lg']) }}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
