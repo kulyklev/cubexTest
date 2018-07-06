@@ -7,6 +7,15 @@
 
         <title>Laravel</title>
 
+
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -83,15 +92,17 @@
                     Cubex test
                 </div>
                 <div class="flex-center">
-                    @if(Auth::user()->isAdmin)
-                        <a href="{{ route("bid.create") }}" class="btn btn-info">
-                            Просмотреть заявки
-                        </a>
-                    @else
-                        <a href="{{ route("bid.create") }}" class="btn btn-info">
-                            Создать заявку
-                        </a>
-                    @endif
+                    @auth
+                        @if(Auth::user()->isAdmin)
+                            <a href="{{ route("bid.create") }}" class="btn btn-info">
+                                Просмотреть заявки
+                            </a>
+                        @else
+                            <a href="{{ route("bid.create") }}" class="btn btn-info">
+                                Создать заявку
+                            </a>
+                        @endif
+                    @endauth
                 </div>
 
             </div>
