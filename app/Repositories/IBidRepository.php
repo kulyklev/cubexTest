@@ -9,7 +9,7 @@
 namespace App\Repositories;
 
 interface IBidRepository{
-    public function storeBid(array $data, $userId);
+    public function storeBid(array $data, $userId, $filePath);
 
     public function getBidById($bidId);
 

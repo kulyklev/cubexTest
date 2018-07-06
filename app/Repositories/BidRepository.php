@@ -20,13 +20,13 @@ class BidRepository implements IBidRepository
         $this->bid = $bid;
     }
 
-    public function storeBid(array $data, $userId) : Bid
+    public function storeBid(array $data, $userId, $filePath) : Bid
     {
         $newBid = new Bid();
         $newBid->user_id = $userId;
         $newBid->theme = $data['messageTheme'];
         $newBid->message = $data['message'];
-        $newBid->file = array_key_exists('file', $data) == true  ? $data['contingent'] : null;
+        $newBid->file = array_key_exists('file', $data) == true  ? null : $filePath;
         $newBid->save();
         return $newBid;
     }

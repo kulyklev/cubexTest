@@ -60,7 +60,7 @@ class BidController extends Controller
      */
     public function store(StoreBid $request)
     {
-        $bid = $this->bidRepository->storeBid($request->input(), Auth::id());
+        $bid = $this->bidRepository->storeBid($request->input(), Auth::id(), $this->getFileNameToStore($request));
         Mail::to($request->user())->queue(new mailToAdmin($bid));
         return redirect('/')->with('success', 'Заявка отправлена');
     }
@@ -68,10 +68,21 @@ class BidController extends Controller
     /**
      * Making request to send email
      *
-     * @param $bid
+     * @param  \App\Http\Requests\StoreBid  $request
+     * @return string
      */
-    private function sendEmail($bid){
+    private function getFileNameToStore(StoreBid $request){
+        if ($request->hasFile('file')){
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $filenameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $request->file('file')->storeAs('public/files', $filenameToStore);
+        }
+        else
+            $filenameToStore = null;
 
+        return $filenameToStore;
     }
 
     /**

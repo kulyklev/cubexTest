@@ -28,7 +28,9 @@
 
                     <tr>
                         <th>Прикрепленный файл</th>
-                        {{--<th>{{ $bid->file }}</th>--}}
+                        <th>
+                            <a href="/storage/files/{{ $bid->file  }}" target="_blank">{{ $bid->file }}</a>
+                        </th>
                     </tr>
 
                     <tr>
