@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBid;
+use App\Mail\mailToAdmin;
+use App\Models\Bid;
 use App\Repositories\IBidRepository;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BidController extends Controller
 {
@@ -57,8 +60,18 @@ class BidController extends Controller
      */
     public function store(StoreBid $request)
     {
-        $this->bidRepository->storeBid($request->input(), Auth::id());
+        $bid = $this->bidRepository->storeBid($request->input(), Auth::id());
+        Mail::to($request->user())->queue(new mailToAdmin($bid));
         return redirect('/')->with('success', 'Заявка отправлена');
+    }
+
+    /**
+     * Making request to send email
+     *
+     * @param $bid
+     */
+    private function sendEmail($bid){
+
     }
 
     /**
@@ -75,7 +88,6 @@ class BidController extends Controller
         } else {
             return redirect('/')->with('error', 'You cannot view this bid');
         }
-
     }
 
     /**
@@ -94,40 +106,4 @@ class BidController extends Controller
         else
             return redirect('/')->with('error', 'You cannot perform this action');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
 }

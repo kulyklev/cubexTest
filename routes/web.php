@@ -25,7 +25,3 @@ Route::get('bid', 'BidController@index')->name('bid.index');
 Route::get('bid/create', 'BidController@create')->name('bid.create');
 Route::get('bid/{bid}', 'BidController@show')->name('bid.show');
 Route::match(['put', 'patch'], 'bid/{bid}', 'BidController@markAsViewed')->name('bid.markAsViewed');
-
-
-
-//Route::resource('bid', 'BidController');
