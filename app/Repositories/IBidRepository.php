@@ -16,4 +16,6 @@ interface IBidRepository{
     public function getAllBids();
 
     public function markAsViewed($bidId);
+
+    public function getLatestUserBid($userId);
 }

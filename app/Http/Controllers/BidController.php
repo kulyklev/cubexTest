@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBid;
 use App\Mail\mailToAdmin;
 use App\Models\Bid;
 use App\Repositories\IBidRepository;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -60,9 +61,13 @@ class BidController extends Controller
      */
     public function store(StoreBid $request)
     {
-        $bid = $this->bidRepository->storeBid($request->input(), Auth::id(), $this->getFileNameToStore($request));
-        Mail::to($request->user())->queue(new mailToAdmin($bid));
-        return redirect('/')->with('success', 'Заявка отправлена');
+        if(Gate::allows('makeBid')){
+            $bid = $this->bidRepository->storeBid($request->input(), Auth::id(), $this->getFileNameToStore($request));
+            Mail::queue(new mailToAdmin($bid));
+            return redirect('/')->with('success', 'Заявка отправлена');
+        }
+        else
+            return redirect('/')->with('error', 'На сегоднешний день ваш лимит заявок исчерпан.');
     }
 
     /**

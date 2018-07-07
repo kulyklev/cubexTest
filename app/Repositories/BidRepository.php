@@ -47,4 +47,9 @@ class BidRepository implements IBidRepository
         $bid->isViewed = true;
         $bid->save();
     }
+
+    public function getLatestUserBid($userId){
+        $bid = Bid::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
+        return $bid;
+    }
 }
